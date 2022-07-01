@@ -1,3 +1,5 @@
+# Why Core？
+When building reports or running ad-hoc analysis, it often involves identifying metrics/data required and steps to get them. This is then followed by extracting data from sources, checking data quality & completeness. This can be time consuming and if the data quality is poor, an alternative approach is needed. The sooner this is known, the sooner we can move on to the next approach. Develop a tool that takes in list of data source endpoints (e.g. API Endpoints), expected output (e.g. schema on response payload) and search key; the expected output is values on  found item and a summary of search outcome
 # Project scoping
 ## (A) Vision Statement: 
 Our goal is to create an online data pre-processing platform that is feature-rich and simple to use, allowing users to filter and visualize complex data without any coding skills. With the platform's powerful analysis capabilities and rich visualization pages, users can effectively check the integrity and reliability of data.
