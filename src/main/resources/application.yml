@@ -1,0 +1,8 @@
+app:
+  datasource:
+    #docker start ca2349e0fe1a
+    jdbc-url: jdbc:postgresql://localhost:5432/demodb
+    #jdbc-url: jdbc:postgresql://localhost:5432/coredb
+    username: postgres
+    password: password
+    pool_size: 30
