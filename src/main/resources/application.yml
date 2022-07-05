@@ -1,3 +1,6 @@
+spring:
+  flyway:
+    enabled: false
 app:
   datasource:
     #docker start ca2349e0fe1a
