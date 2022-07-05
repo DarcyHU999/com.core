@@ -1,3 +1,7 @@
+spring:
+  flyway:
+    baselineOnMigrate: true
+    validateOnMigrate: false
 app:
   datasource:
     #docker start ca2349e0fe1a
