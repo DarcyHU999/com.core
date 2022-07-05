@@ -17,9 +17,9 @@ function App() {
     function submitInform(){
         let data={
             "apiURL":"https://imdb-api.com/en/API/Top250Movies/k_6rjwdxn6",
-            "keyword":{inputInform}
+            "keyword":inputInform.inputInform
         }
-        axios.post('http://localhost:5005/user/auth/login', data)
+        axios.post('http://localhost:8080/api/v1/UserEntry', data)
             .then(function (response) {
                 console.log("ok");
                 console.log("ok");

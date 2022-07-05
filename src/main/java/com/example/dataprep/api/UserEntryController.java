@@ -5,10 +5,7 @@ import org.json.JSONObject;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
@@ -29,7 +26,7 @@ public class UserEntryController {
         this.userEntryService = userEntryService;
     }
 
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @PostMapping
     public void insertEntryService( @Valid @NonNull @RequestBody Map<String, String> userEntry) throws IOException {
         //userEntryService.insertUserEntry(apiURL,keyword);
