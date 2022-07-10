@@ -1,11 +1,10 @@
 spring:
-  flyway:
-    enabled: false
-app:
   datasource:
-    #docker start ca2349e0fe1a
-    jdbc-url: jdbc:postgresql://localhost:5432/demodb
-    #jdbc-url: jdbc:postgresql://localhost:5432/coredb
-    username: postgres
-    password: password
-    pool_size: 30
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/comp9323_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: roninsql
+server:
+  port: 8080
+

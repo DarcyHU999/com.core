@@ -1,6 +1,7 @@
 package com.example.dataprep.dao;
 
 import com.example.dataprep.model.UserEntry;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

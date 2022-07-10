@@ -32,6 +32,7 @@ public class UserEntryController {
         //userEntryService.insertUserEntry(apiURL,keyword);
         JSONObject jsonFile = readAndAccess(userEntry.get("apiURL"),userEntry.get("keyword"));
         int l = 1;
+        System.out.println("11111");
     }
 
     private static String readAll(Reader rd) throws IOException {
