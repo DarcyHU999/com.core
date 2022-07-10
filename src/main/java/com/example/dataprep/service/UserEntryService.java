@@ -13,7 +13,8 @@ public class UserEntryService {
     public UserEntryService(@Qualifier("mockDao") UserEntryDao userEntryDao) {
         this.userEntryDao = userEntryDao;
     }
+
     public int insertUserEntry(String apiURL, String keyword) {
-        return userEntryDao.insertUserEntry(apiURL,keyword);
+        return userEntryDao.insertUserEntry(apiURL, keyword);
     }
 }
