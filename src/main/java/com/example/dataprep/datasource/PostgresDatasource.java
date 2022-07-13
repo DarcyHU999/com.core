@@ -6,7 +6,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //real database
-@Configuration
+//@Configuration
 public class PostgresDatasource {
     @ConfigurationProperties("app.datasource")
     @Bean
