@@ -1,4 +1,5 @@
 package com.example.dataprep.service.impl;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.dataprep.dao.UserDao;
 import com.example.dataprep.model.User;
 import com.example.dataprep.service.UserService;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
     @Autowired
     private UserDao userDao;
 

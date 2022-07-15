@@ -1,4 +1,4 @@
-package com.example.dataprep.api;
+package com.example.dataprep.common;
 
 public class Result {
     private Integer code;
