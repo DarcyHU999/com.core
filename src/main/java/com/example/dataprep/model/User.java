@@ -1,11 +1,9 @@
 package com.example.dataprep.model;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     @NotBlank
     private Integer id;
     @NotBlank

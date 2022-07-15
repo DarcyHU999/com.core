@@ -1,8 +1,13 @@
 package com.example.dataprep.api;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.dataprep.common.Code;
+import com.example.dataprep.common.Result;
 import com.example.dataprep.model.User;
 import com.example.dataprep.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -11,6 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*用户增删改查*/
     @PostMapping
     public Result save(@RequestBody User user){
         boolean flag = userService.save(user);
@@ -44,5 +50,27 @@ public class UserController {
         Integer code = userList != null ? Code.GET_OK : Code.GET_ERR;
         String msg = userList != null ? "Query successfully!": "Data query failure";
         return new Result(code, userList, msg);
+    }
+    /*用户登录以及登出*/
+    @PostMapping("/login")
+    public Result login(HttpServletRequest request, @RequestBody User user){
+        String password = user.getPassword();
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getUsername, user.getUsername());
+        User user1 = userService.getOne(queryWrapper);
+        if (user1 == null){
+            Integer code = Code.LOGIN_ERR;
+            String msg = "用户名不存在";
+            return new Result(code, null, msg);
+        }
+        if (!user1.getPassword().equals(password)){
+            Integer code = Code.LOGIN_ERR;
+            String msg = "密码错误";
+            return new Result(code, null, msg);
+        }
+        request.getSession().setAttribute("user", user.getId());
+        Integer code = Code.LOGIN_OK;
+        String msg = "登录成功";
+        return new Result(code, user1, msg);
     }
 }
