@@ -8,21 +8,25 @@ import { Col, Row } from 'antd';
 import axios from 'axios';
 import {  Dropdown, Menu, message, Space, Tooltip } from 'antd';
 import styled from "styled-components";
-const Styledtitle=styled.h1`
-  font-size: 3rem;
-`
+import { BrowserRouter ,Router, Link,Route} from "react-router-dom";
+import Summary from './Summary'
 
-const Search = () => {
+
+const SearchPage = () => {
+    const [inputInform, setInput] = useState("");
+    const [API, setAPI] = useState("");
     const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
+
+        console.log('click', e.key);
+        setAPI(e.key)
+
     };
     const menu = (
         <Menu
             onClick={handleMenuClick}
             items={[
                 {
-                    label: '1st menu item',
+                    label: 'Security Group',
                     key: '1',
                     icon: <UserOutlined />,
                 },
@@ -39,7 +43,7 @@ const Search = () => {
             ]}
         />
     );
-    const [inputInform, setInput] = useState("");
+
     function handleChange(event) {
         setInput(previousState => {
             console.log({inputInform});
@@ -51,10 +55,13 @@ const Search = () => {
             "apiURL":"https://imdb-api.com/en/API/Top250Movies/k_6rjwdxn6",
             "keyword":inputInform.inputInform
         }
-        axios.post('http://localhost:8080/api/v1/UserEntry', data)
+        let key=inputInform.inputInform
+        let api=API
+        let url='http://localhost:8080/api/ApiInfo/'+api+'/'+key
+        axios.get(url)
             .then(function (response) {
-                console.log("ok");
-                console.log("ok");
+                console.log(response);
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -74,7 +81,7 @@ const Search = () => {
                         <Dropdown overlay={menu}>
                             <Button>
                                 <Space>
-                                    Button
+                                    API
                                     <DownOutlined />
                                 </Space>
                             </Button>
@@ -84,9 +91,19 @@ const Search = () => {
                         <Input onChange={handleChange}/>
                     </Col>
                     <Col span={4}>
-                        <Button type="primary" icon={<SearchOutlined />} onClick={submitInform}>
-                            Search
-                        </Button>
+
+                        <Link to='/summary'>
+                            <Button type="primary" icon={<SearchOutlined />} onClick={submitInform}>
+                                Search
+                            </Button>
+
+                        </Link>
+
+
+
+
+
+
                     </Col>
 
                     <Col span={6}></Col>
@@ -97,4 +114,4 @@ const Search = () => {
 
 };
 
-export default Search;
+export default SearchPage;
