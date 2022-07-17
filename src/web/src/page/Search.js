@@ -13,16 +13,20 @@ const Styledtitle=styled.h1`
 `
 
 const Search = () => {
+    const [inputInform, setInput] = useState("");
+    const [API, setAPI] = useState("");
     const handleMenuClick = (e) => {
-        message.info('Click on menu item.');
-        console.log('click', e);
+
+        console.log('click', e.key);
+        setAPI(e.key)
+
     };
     const menu = (
         <Menu
             onClick={handleMenuClick}
             items={[
                 {
-                    label: '1st menu item',
+                    label: 'Security Group',
                     key: '1',
                     icon: <UserOutlined />,
                 },
@@ -39,7 +43,7 @@ const Search = () => {
             ]}
         />
     );
-    const [inputInform, setInput] = useState("");
+
     function handleChange(event) {
         setInput(previousState => {
             console.log({inputInform});
@@ -51,7 +55,10 @@ const Search = () => {
             "apiURL":"https://imdb-api.com/en/API/Top250Movies/k_6rjwdxn6",
             "keyword":inputInform.inputInform
         }
-        axios.post('http://localhost:8080/api/v1/UserEntry', data)
+        let key={inputInform}
+        let api={API}
+        let url='https://localhost:8080/api/ApiInfo/'+api+'/'+key
+        axios.get(url)
             .then(function (response) {
                 console.log("ok");
                 console.log("ok");
@@ -74,7 +81,7 @@ const Search = () => {
                         <Dropdown overlay={menu}>
                             <Button>
                                 <Space>
-                                    Button
+                                    API
                                     <DownOutlined />
                                 </Space>
                             </Button>
