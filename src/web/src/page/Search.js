@@ -91,11 +91,7 @@ const Search = () => {
 
                     <Col span={6}></Col>
                 </Row>
-
             </div>
-
-
-
         </div>
     );
 
