@@ -18,7 +18,7 @@ import java.util.*;
 public class ApiInfoController {
     @Autowired
     private ApiInfoService apiInfoService;
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @RequestMapping(path = "/{ids}/{keyWord}", method = RequestMethod.GET)
     public Result getById(@PathVariable String ids, @PathVariable String keyWord){
         List<String> info = new ArrayList<>();
