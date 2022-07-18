@@ -36,6 +36,10 @@ public class ApiInfo {
     @Column(columnDefinition="TEXT")
     private String IpPermissions;
 
+    @Column(columnDefinition="FLOAT")
+    private Float score;
+
+
     public String getAccessId() {
         return accessId;
     }
@@ -100,7 +104,16 @@ public class ApiInfo {
         IpPermissions = ipPermissions;
     }
 
-    public ApiInfo(Integer id, String accessId, String type, String region, String rawData, Integer numOfGroups, String numOfTagsInGroup, Integer num_of_tags, String ipPermissions) {
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
+    }
+
+    public ApiInfo(Integer id, String accessId, String type, String region, String rawData, Integer numOfGroups, String numOfTagsInGroup, Integer num_of_tags, String ipPermissions,Float score) {
         this.id = id;
         this.accessId = accessId;
         this.type = type;
@@ -110,6 +123,7 @@ public class ApiInfo {
         this.numOfTagsInGroup = numOfTagsInGroup;
         this.numOfTags = numOfTags;
         this.IpPermissions = ipPermissions;
+        this.score = score;
     }
 
     public ApiInfo() {
