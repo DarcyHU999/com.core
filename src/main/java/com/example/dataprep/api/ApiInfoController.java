@@ -51,11 +51,11 @@ public class ApiInfoController {
         String groupCase=findGroupCase(rawData);
         String keyFreq=findKeyFreq(rawData,keyWord);
         String infoStr = "{" +
-                "'keyFreq':" + keyFreq  + "," +
-                "'numOfIncludeTagsGroup':" + apiInfo.getNumOfTags().toString() + "," +
-                "'numOfNotIncludeTagsGroup':" + Integer.toString((apiInfo.getNumOfGroups() - apiInfo.getNumOfTags())) + "," +
-                "'usualPort':" + usualPort + "," +
-                "'groupCase':" + groupCase + "," +
+                "\"keyFreq\":" + keyFreq  + "," +
+                "\"numOfIncludeTagsGroup\":" + apiInfo.getNumOfTags().toString() + "," +
+                "\"numOfNotIncludeTagsGroup\":" + Integer.toString((apiInfo.getNumOfGroups() - apiInfo.getNumOfTags())) + "," +
+                "\"usualPort\":" + usualPort + "," +
+                "\"groupCase\":" + groupCase +
                 "}";
         return infoStr;
     }

@@ -7,17 +7,20 @@ import { Input } from 'antd';
 import { Col, Row } from 'antd';
 import axios from 'axios';
 import {  Dropdown, Menu, message, Space, Tooltip } from 'antd';
-import styled from "styled-components";
-import { BrowserRouter ,Router, Link,Route} from "react-router-dom";
-import Summary from './Summary'
+
+import { useNavigate, Link,createSearchParams} from "react-router-dom";
+
 
 
 const SearchPage = () => {
-    const [inputInform, setInput] = useState("");
-    const [API, setAPI] = useState("");
+    const [inputInform, setInput] = useState("")
+    const [API, setAPI] = useState("")
+
+    let navigate = useNavigate();
+
     const handleMenuClick = (e) => {
 
-        console.log('click', e.key);
+
         setAPI(e.key)
 
     };
@@ -46,21 +49,21 @@ const SearchPage = () => {
 
     function handleChange(event) {
         setInput(previousState => {
-            console.log({inputInform});
+
             return { ...previousState, inputInform: event.target.value }
         })
     }
     function submitInform(){
-        let data={
-            "apiURL":"https://imdb-api.com/en/API/Top250Movies/k_6rjwdxn6",
-            "keyword":inputInform.inputInform
-        }
+
         let key=inputInform.inputInform
         let api=API
         let url='http://localhost:8080/api/ApiInfo/'+api+'/'+key
         axios.get(url)
             .then(function (response) {
+
+                // setData(response.data.data)
                 console.log(response);
+                navigate("/summary", { state: response.data.data })
 
             })
             .catch(function (error) {
@@ -92,18 +95,15 @@ const SearchPage = () => {
                     </Col>
                     <Col span={4}>
 
-                        <Link to='/summary'>
+                        {/*<Link*/}
+                        {/*    to={`/summary`}*/}
+                        {/*    state={{ data: "the-page-id" }}*/}
+                        {/*>*/}
                             <Button type="primary" icon={<SearchOutlined />} onClick={submitInform}>
                                 Search
                             </Button>
 
-                        </Link>
-
-
-
-
-
-
+                        {/*</Link>*/}
                     </Col>
 
                     <Col span={6}></Col>
