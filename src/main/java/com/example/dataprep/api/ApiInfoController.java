@@ -3,7 +3,9 @@ package com.example.dataprep.api;
 import com.example.dataprep.common.Code;
 import com.example.dataprep.common.Result;
 import com.example.dataprep.model.ApiInfo;
+import com.example.dataprep.model.User;
 import com.example.dataprep.service.ApiInfoService;
+import com.example.dataprep.service.UserService;
 import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -109,5 +111,45 @@ public class ApiInfoController {
         else{
             return null;
         }
+    }
+    @Autowired
+    UserService userService;
+
+    public Integer gradedNumber() {
+        Integer userNumber = 0;
+        List<User> userList = userService.getAll();
+        for (User user : userList) {
+            if (user.getGrade() != null){
+                userNumber ++;
+            }
+        }
+        return userNumber;
+    }
+
+    @CrossOrigin( origins ="http://localhost:3000")
+    @RequestMapping(path = "/scoring", method = RequestMethod.PUT)
+    public Result update(@RequestBody String jsonString){
+        JSONObject jsonObject = new JSONObject(jsonString);
+        Integer gradedNumber = gradedNumber() + 1;
+        Integer numOfApis = apiInfoService.getApiNum();
+        boolean flag = true;
+        for(int i = 1; i < numOfApis + 1;i++){
+            ApiInfo apiInfo = apiInfoService.getById(i);
+            String newAddGrade =jsonObject.getString(Integer.toString(i));
+            Float newScore = ((apiInfo.getScore()*(gradedNumber-1) + Integer.parseInt(newAddGrade))/gradedNumber);
+            Float oldScore = apiInfo.getScore();
+            apiInfo.setScore(newScore);
+            if(newScore == oldScore){
+                flag = true;
+            }else {
+                flag = apiInfoService.update(apiInfo);
+            }
+            if (flag == true){
+                continue;
+            }else{
+                break;
+            }
+        }
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR, flag);
     }
 }
