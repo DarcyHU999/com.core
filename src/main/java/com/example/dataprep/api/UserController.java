@@ -15,27 +15,27 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @CrossOrigin( origins ="http://localhost:3000")
     /*用户增删改查*/
     @PostMapping
     public Result save(@RequestBody User user){
         boolean flag = userService.save(user);
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR, flag);
     }
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id){
         boolean flag = userService.delete(id);
         return new Result(flag ? Code.DELETE_OK: Code.DELETE_ERR, flag);
     }
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @PutMapping
     public Result update(@RequestBody User user){
         boolean flag = userService.update(user);
         System.out.println(user);
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR, flag);
     }
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
         User user = userService.getById(id);
@@ -43,7 +43,7 @@ public class UserController {
         String msg = user != null ? "Query successfully!": "Data query failure";
         return new Result(code, user, msg);
     }
-
+    @CrossOrigin( origins ="http://localhost:3000")
     @GetMapping
     public Result getAll(){
         List<User> userList = userService.getAll();
@@ -52,6 +52,7 @@ public class UserController {
         return new Result(code, userList, msg);
     }
     /*用户登录以及登出*/
+    @CrossOrigin( origins ="http://localhost:3000")
     @PostMapping("/login")
     public Result login(HttpServletRequest request, @RequestBody User user){
         String password = user.getPassword();
