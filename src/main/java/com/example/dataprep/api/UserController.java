@@ -4,6 +4,7 @@ import com.example.dataprep.common.Code;
 import com.example.dataprep.common.Result;
 import com.example.dataprep.model.User;
 import com.example.dataprep.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;
@@ -54,6 +56,7 @@ public class UserController {
     /*用户登录以及登出*/
     @PostMapping("/login")
     public Result login(HttpServletRequest request, @RequestBody User user){
+        log.info("{}", user.toString());
         String password = user.getPassword();
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, user.getUsername());
@@ -68,9 +71,17 @@ public class UserController {
             String msg = "密码错误";
             return new Result(code, null, msg);
         }
-        request.getSession().setAttribute("user", user.getId());
+        request.getSession().setAttribute("user", user1.getId());
+        log.info("用户id位{}", user1.getId());
         Integer code = Code.LOGIN_OK;
         String msg = "登录成功";
         return new Result(code, user1, msg);
+    }
+    @PostMapping("/logout")
+    public Result logout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        Integer code = Code.LOGOUT_OK;
+        String msg = "退出成功";
+        return new Result(code, null, msg);
     }
 }

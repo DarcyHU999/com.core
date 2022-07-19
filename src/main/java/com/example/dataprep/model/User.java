@@ -1,5 +1,7 @@
 package com.example.dataprep.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -7,6 +9,7 @@ public class User implements Serializable {
     @NotBlank
     private Integer id;
     @NotBlank
+    @UniqueElements
     private String username;
     @NotBlank
     private String password;

@@ -8,6 +8,7 @@ public class Code {
     public static final Integer GET_OK = 932341;
     public static final Integer SEARCH_OK = 932351;
     public static final Integer LOGIN_OK = 932361;
+    public static final Integer LOGOUT_OK = 932361;
 
     public static final Integer SAVE_ERR = 932310;
     public static final Integer DELETE_ERR = 932320;
@@ -15,4 +16,5 @@ public class Code {
     public static final Integer GET_ERR = 932340;
     public static final Integer SEARCH_ERR = 932350;
     public static final Integer LOGIN_ERR = 932360;
+    public static final Integer LOGOUT_OUT = 932360;
 }
