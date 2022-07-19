@@ -8,12 +8,10 @@ const LogIn = props => {
             <Link to='/search'>
                 <button>search</button>
             </Link>
-
-
-
         </div>
     );
 };
 
 
 export default LogIn;
+
