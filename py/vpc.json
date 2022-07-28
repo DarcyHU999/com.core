@@ -1,0 +1,60 @@
+{
+    "Vpcs": [
+        {
+            "CidrBlock": "20.0.0.0/16",
+            "DhcpOptionsId": "dopt-97765df3",
+            "State": "available",
+            "VpcId": "vpc-021fb30960704c6b9",
+            "OwnerId": "963956405820",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-0647940bf4e1fa83c",
+                    "CidrBlock": "20.0.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "kubernetes-lab-vpc"
+                }
+            ]
+        },
+        {
+            "CidrBlock": "172.31.0.0/16",
+            "DhcpOptionsId": "dopt-97765df3",
+            "State": "available",
+            "VpcId": "vpc-4b94882f",
+            "OwnerId": "963956405820",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-bc5fb3d4",
+                    "CidrBlock": "172.31.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": true
+        }
+    ],
+    "ResponseMetadata": {
+        "RequestId": "93507fa2-76da-4fc4-ab56-9ab66798e9de",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "x-amzn-requestid": "93507fa2-76da-4fc4-ab56-9ab66798e9de",
+            "cache-control": "no-cache, no-store",
+            "strict-transport-security": "max-age=31536000; includeSubDomains",
+            "content-type": "text/xml;charset=UTF-8",
+            "content-length": "1888",
+            "date": "Thu, 28 Jul 2022 06:04:14 GMT",
+            "server": "AmazonEC2"
+        },
+        "RetryAttempts": 0
+    }
+}

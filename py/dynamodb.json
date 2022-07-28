@@ -1,0 +1,42 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "posts",
+        "KeySchema": [
+            {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2019-01-20 09:01:03.607000+08:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+        },
+        "TableSizeBytes": 1166,
+        "ItemCount": 4,
+        "TableArn": "arn:aws:dynamodb:us-east-1:963956405820:table/posts",
+        "TableId": "9e78d112-5f0b-40b9-833c-c037d93c29fc"
+    },
+    "ResponseMetadata": {
+        "RequestId": "QR4NVOH059DND24QU9L2JHSTPFVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "server": "Server",
+            "date": "Thu, 28 Jul 2022 09:57:53 GMT",
+            "content-type": "application/x-amz-json-1.0",
+            "content-length": "460",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "QR4NVOH059DND24QU9L2JHSTPFVV4KQNSO5AEMVJF66Q9ASUAAJG",
+            "x-amz-crc32": "3685599517"
+        },
+        "RetryAttempts": 0
+    }
+}
