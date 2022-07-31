@@ -45,18 +45,28 @@ const SearchPage = () => {
             onClick={handleMenuClick}
             items={[
                 {
-                    label: 'Security Group',
+                    label: 'Vpcs',
                     key: '1',
                     icon: <ApiOutlined />,
                 },
                 {
-                    label: '2nd menu item',
+                    label: 'SecurityGroups',
                     key: '2',
                     icon: <ApiOutlined />,
                 },
                 {
-                    label: '3rd menu item',
+                    label: 'Subnets',
                     key: '3',
+                    icon: <ApiOutlined />,
+                },
+                {
+                    label: 'Reservations',
+                    key: '4',
+                    icon: <ApiOutlined />,
+                },
+                {
+                    label: 'Table',
+                    key: '5',
                     icon: <ApiOutlined />,
                 },
             ]}
