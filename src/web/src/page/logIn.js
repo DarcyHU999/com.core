@@ -130,6 +130,10 @@ const LogIn = props => {
                     
                 />
             </Form.Item>
+            <Form.Item>
+                <Form.Item name="rigster" valuePropName="checked" noStyle>
+
+                
             {/* <Form.Item className = 'remember'>
             
                 <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -137,13 +141,15 @@ const LogIn = props => {
                 </Form.Item>
 
             </Form.Item> */}
-
+            </Form.Item>
+            </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button">
                     Log in
                 </Button>
+                Or <a href="/Register">register now!</a>
             </Form.Item>
-        </Form>
+        </Form> 
         </div>
     )
 }   // end of LogIn
