@@ -1,9 +1,6 @@
 package com.example.dataprep.model;
 
-import org.json.JSONObject;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table (name = "ApiInfo")
@@ -13,7 +10,7 @@ public class ApiInfo {
     private Integer id;
 
     @Column(columnDefinition="CHAR(32)")
-    private String accessId;
+    private String service;
 
     @Column(columnDefinition="CHAR(32)")
     private String type;
@@ -36,16 +33,22 @@ public class ApiInfo {
     @Column(columnDefinition="TEXT")
     private String IpPermissions;
 
+    @Column(columnDefinition="TEXT")
+    private String cidrBlock;
+
+    @Column(columnDefinition="TEXT")
+    private String privateIpAddress;
+
     @Column(columnDefinition="FLOAT")
     private Float score;
 
 
-    public String getAccessId() {
-        return accessId;
+    public String getService() {
+        return service;
     }
 
-    public void setAccessId(String accessId) {
-        this.accessId = accessId;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getType() {
@@ -113,14 +116,32 @@ public class ApiInfo {
         this.score = score;
     }
 
-    public ApiInfo(Integer id, String accessId, String type, String region, String rawData, Integer numOfGroups, String numOfTagsInGroup, Integer num_of_tags, String ipPermissions,Float score) {
+    public String getCidrBlock() {
+        return cidrBlock;
+    }
+
+    public void setCidrBlock(String cidrBlock) {
+        this.cidrBlock = cidrBlock;
+    }
+
+    public String getPrivateIpAddress() {
+        return privateIpAddress;
+    }
+
+    public void setPrivateIpAddress(String privateIpAddress) {
+        this.privateIpAddress = privateIpAddress;
+    }
+
+    public ApiInfo(Integer id, String service, String type, String region, String rawData, Integer numOfGroups, String numOfTagsInGroup, Integer numOfTags, String ipPermissions, String cidrBlock, String privateIpAddress, Float score) {
         this.id = id;
-        this.accessId = accessId;
+        this.service = service;
         this.type = type;
         this.region = region;
         this.rawData = rawData;
         this.numOfGroups = numOfGroups;
         this.numOfTagsInGroup = numOfTagsInGroup;
+        this.cidrBlock = cidrBlock;
+        this.privateIpAddress = privateIpAddress;
         this.numOfTags = numOfTags;
         this.IpPermissions = ipPermissions;
         this.score = score;

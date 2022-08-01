@@ -40,6 +40,8 @@ public class ApiInfoController {
         JSONObject ipPermissions = new JSONObject();
         JSONObject numOfTagsInGroup = new JSONObject();
         JSONObject rawData = new JSONObject();
+        JSONObject cidrBlock = new JSONObject();
+        JSONObject privateIpAddress = new JSONObject();
         if(apiInfo.getIpPermissions() != null) {
             ipPermissions = new JSONObject(apiInfo.getIpPermissions());
         }
@@ -49,14 +51,24 @@ public class ApiInfoController {
         if(apiInfo.getRawData() != null) {
             rawData = new JSONObject(apiInfo.getRawData());
         }
+        if(apiInfo.getPrivateIpAddress() != null) {
+            privateIpAddress = new JSONObject(apiInfo.getPrivateIpAddress());
+        }
+        if(apiInfo.getCidrBlock() != null) {
+            cidrBlock = new JSONObject(apiInfo.getCidrBlock());
+        }
+
         String usualPort=findUsualPort(ipPermissions);
         String groupCase=findGroupCase(rawData);
         String keyFreq=findKeyFreq(rawData,keyWord);
         String infoStr = "{" +
+                "\"botoType\":" + "\"" + apiInfo.getType() + "\""  + "," +
+                "\"service\":" + "\"" + apiInfo.getService() + "\"" + "," +
                 "\"keyFreq\":" + keyFreq  + "," +
                 "\"numOfIncludeTagsGroup\":" + apiInfo.getNumOfTags().toString() + "," +
-                "\"numOfNotIncludeTagsGroup\":" + Integer.toString((apiInfo.getNumOfGroups() - apiInfo.getNumOfTags())) + "," +
+                "\"numOfNotIncludeTagsGroup\":" + (apiInfo.getNumOfGroups() - apiInfo.getNumOfTags()) + "," +
                 "\"usualPort\":" + usualPort + "," +
+                "\"rawData\":" + rawData + "," +
                 "\"groupCase\":" + groupCase +
                 "}";
         return infoStr;
