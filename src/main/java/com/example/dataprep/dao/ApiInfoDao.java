@@ -25,6 +25,8 @@ public interface ApiInfoDao extends BaseMapper<ApiInfo> {
             "    <if test='numOfTags != null'>numOfTags=#{numOfTags},</if>",
             "    <if test='numOfTagsInGroup != null'>numOfTagsInGroup=#{numOfTagsInGroup},</if>",
             "    <if test='ipPermissions != null'>ipPermissions=#{ipPermissions},</if>",
+            "    <if test='cidrBlock != null'>cidrBlock=#{cidrBlock},</if>",
+            "    <if test='privateIpAddress != null'>privateIpAddress=#{privateIpAddress},</if>",
             "    <if test='score != null'>score=#{score},</if>",
             "  </set>",
             "where id=#{id}",
