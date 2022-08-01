@@ -1,15 +1,15 @@
 import React from 'react';
 import { useState } from "react";
 import { DownOutlined, ApiOutlined } from '@ant-design/icons';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined,SecurityScanOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Input } from 'antd';
 import { Col, Row } from 'antd';
 import axios from 'axios';
 import {  Dropdown, Menu, Modal, Space,Rate } from 'antd';
-
+import { LikeOutlined } from '@ant-design/icons';
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
-
+import {PageHeader} from 'antd';
 
 
 const SearchPage = () => {
@@ -102,12 +102,25 @@ const SearchPage = () => {
             </div>
             <div>
                 <Row>
+                    <Col span={11}>
+                    </Col>
+                    <Col span={2}>
+                        <SecurityScanOutlined spin style={{fontSize:"60px"}}/>
+                        <div style={{height:"50px",width:"100px"}}>
+                        </div>
+                    </Col>
+                    <Col span={11}>
+
+                    </Col>
+
+                </Row>
+                <Row>
                     <Col span={8}>
 
                     </Col>
                     <Col span={2}>
-                        <Dropdown overlay={menu}>
-                            <Button>
+                        <Dropdown overlay={menu} >
+                            <Button style={{height:"5vh",fontSize:"1.5rem"}}>
                                 <Space>
                                     API
                                     <DownOutlined />
@@ -116,7 +129,7 @@ const SearchPage = () => {
                         </Dropdown>
                     </Col>
                     <Col span={4}>
-                        <Input onChange={handleChange}/>
+                        <Input onChange={handleChange} style={{height:"5vh",fontSize:"1.5rem"}}/>
                     </Col>
                     <Col span={4}>
 
@@ -124,7 +137,7 @@ const SearchPage = () => {
                         {/*    to={`/summary`}*/}
                         {/*    state={{ data: "the-page-id" }}*/}
                         {/*>*/}
-                            <Button type="primary" icon={<SearchOutlined />} onClick={submitInform}>
+                            <Button type="primary" icon={<SearchOutlined />} onClick={submitInform} style={{height:"5vh",fontSize:"1.5rem"}}>
                                 Search
                             </Button>
 
@@ -132,7 +145,7 @@ const SearchPage = () => {
                     </Col>
 
                     <Col span={6}>
-                        <Button type="primary" onClick={showModal}>
+                        <Button type="primary" onClick={showModal} style={{height:"5vh",fontSize:"1.5rem"}}>
                             Mark APIs
                         </Button>
                         <Modal title="Mark items" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
