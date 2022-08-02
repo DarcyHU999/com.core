@@ -5,30 +5,40 @@ import ReactEcharts from 'echarts-for-react';
 import { Col, Row } from 'antd';
 import {Button, Card,Tag} from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
-
+import iojson from 'iojson'
 const Summary = props => {
     let data=useLocation().state
     data=JSON.parse(data)
     data=data[0]
     console.log(data)
     var freq=data["keyFreq"]
-    var port=data["usualPort"][0]
+    if(data["usualPort"]){
+        var port=data["usualPort"][0]
+    }
     var notTag=data["numOfNotIncludeTagsGroup"]
     var tag=data["numOfIncludeTagsGroup"]
     var groupCase=data["groupCase"]
     var ipRange=""
-    console.log(groupCase['IpPermissions'][0]['IpRanges'])
-    for(let i=0;i<groupCase['IpPermissions'][0]['IpRanges'].length;i++){
-        if(i!=0){
-            ipRange=ipRange+", "
-        }
-        ipRange=ipRange+groupCase['IpPermissions'][0]['IpRanges'][i]['CidrIp']
+    var fromPort = null
+    var ipProtocol = null
+    if(groupCase['IpPermissions'] && groupCase['IpPermissions'][0] && groupCase['IpPermissions'][0]['IpRanges']) {
+        for (let i = 0; i < groupCase['IpPermissions'][0]['IpRanges'].length; i++) {
+            if (i != 0) {
+                ipRange = ipRange + ", "
+            }
+            ipRange = ipRange + groupCase['IpPermissions'][0]['IpRanges'][i]['CidrIp']
 
+
+        }
+        fromPort = groupCase['IpPermissions'][0]['FromPort']
+        ipProtocol = groupCase['IpPermissions'][0]['IpProtocol']
+    }
+
+
+    const outJson =() => {
+        iojson.exportJSON(data["rawData"],`userJson${new Date().getTime()}`)
 
     }
-    console.log(ipRange)
-
-
     const getOption = () => {
         let option = {
             title: {
@@ -83,8 +93,6 @@ const Summary = props => {
             <Card style={{ width: "100%"}}>
                 <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>Keyword Frequency </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{freq}</b></b>
                 <br/>
-                <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>the Most Common Port </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{port}</b></b>
-                <br/>
                 <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>the Number of Groups Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{tag}</b></b>
                 <br/>
                 <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>the Number of Groups not Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{notTag}</b></b>
@@ -102,9 +110,9 @@ const Summary = props => {
                         <br/>
                         <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>Group Name </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{groupCase['GroupName']}</b></b>
                         <br/>
-                        <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>From Port </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{groupCase['IpPermissions'][0]['FromPort']}</b></b>
+                        <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>From Port </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{fromPort}</b></b>
                         <br/>
-                        <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>Ip Protocol  </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{groupCase['IpPermissions'][0]['IpProtocol']}</b></b>
+                        <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>Ip Protocol  </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{ipProtocol}</b></b>
                         <br/>
                         <Tag color="gold" style={{fontSize:"1.5rem",fontWeight:"900",height:"28px"}}>Ip Ranges </Tag><b style={{fontSize:"1.5rem",fontWeight:"900"}}> <b style={{fontSize:"1.2rem",fontWeight:"500",color:"black"}}>{ipRange}</b></b>
                         <br/>
@@ -123,7 +131,7 @@ const Summary = props => {
                 <Col span={21}></Col>
                 <Col span={3}>
 
-                    <Button type="primary" style={{marginTop:"20px"}} icon={<DownloadOutlined />} size='large'>
+                    <Button type="primary" style={{marginTop:"20px"}} icon={<DownloadOutlined />} size='large' onClick = {outJson}>
                         Download
                     </Button>
                 </Col>
