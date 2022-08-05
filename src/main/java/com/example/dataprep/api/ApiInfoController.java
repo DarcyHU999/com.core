@@ -61,6 +61,8 @@ public class ApiInfoController {
         String usualPort=findUsualPort(ipPermissions);
         String groupCase=findGroupCase(rawData);
         String keyFreq=findKeyFreq(rawData,keyWord);
+        String tagKeys=findTagKeys(rawData);
+        String tagVals=findTagVals(rawData);
         String infoStr = "{" +
                 "\"botoType\":" + "\"" + apiInfo.getType() + "\""  + "," +
                 "\"service\":" + "\"" + apiInfo.getService() + "\"" + "," +
@@ -68,6 +70,9 @@ public class ApiInfoController {
                 "\"numOfIncludeTagsGroup\":" + apiInfo.getNumOfTags().toString() + "," +
                 "\"numOfNotIncludeTagsGroup\":" + (apiInfo.getNumOfGroups() - apiInfo.getNumOfTags()) + "," +
                 "\"usualPort\":" + usualPort + "," +
+                "\"tagKeys\":" + tagKeys + "," +
+                "\"tagVals\":" + tagVals + "," +
+                "\"score\":" + apiInfo.getScore().toString() + "," +
                 "\"rawData\":" + rawData + "," +
                 "\"groupCase\":" + groupCase +
                 "}";
@@ -98,6 +103,118 @@ public class ApiInfoController {
             }
         }
         return null;
+    }
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    {
+        List<Map.Entry<String, Integer> > list =
+                new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+            public int compare(Map.Entry<String, Integer> o1,
+                               Map.Entry<String, Integer> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    public String findTagKeys(JSONObject rawData){
+        if(rawData.isEmpty()){
+            return null;
+        }
+        Iterator<String> keys = rawData.keys();
+        StringBuilder key = new StringBuilder("");
+        HashMap<String,Integer> resultTemp = new HashMap<String,Integer>();
+        if(keys.hasNext()){
+            key.append((String)keys.next());
+        }else{
+            return null;
+        }
+        JSONArray arr = rawData.getJSONArray(key.toString());
+        for(int i = 0; i < arr.length(); i++)
+        {
+            JSONObject ele = arr.getJSONObject(i);
+            if(ele.has("Tags")){
+                JSONArray tags = ele.getJSONArray("Tags");
+                for (int j = 0; j< tags.length(); j++){
+                    JSONObject tag = tags.getJSONObject(j);
+                    String k = tag.getString("Key");
+                    if(resultTemp.containsKey(k)){
+                        resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
+                    }else{
+                        resultTemp.put(k,1);
+                    }
+                }
+
+            }
+            else{
+                continue;
+            }
+        }
+        Map<String,Integer> result = sortByValue(resultTemp);
+        Map<String, Integer> finalResult = new HashMap<String, Integer>();
+        int flag = 1;
+        for (Map.Entry<String, Integer> newEntry : result.entrySet()) {
+            //get first five
+            if (flag <= 5) {
+                finalResult.put(newEntry.getKey(), newEntry.getValue());
+                ++flag;
+            }
+        }
+        JSONObject jsonResult = new JSONObject(finalResult);
+        return jsonResult.toString();
+    }
+
+    public String findTagVals(JSONObject rawData){
+        if(rawData.isEmpty()){
+            return null;
+        }
+        Iterator<String> keys = rawData.keys();
+        StringBuilder key = new StringBuilder("");
+        HashMap<String,Integer> resultTemp = new HashMap<String,Integer>();
+        if(keys.hasNext()){
+            key.append((String)keys.next());
+        }else{
+            return null;
+        }
+        JSONArray arr = rawData.getJSONArray(key.toString());
+        for(int i = 0; i < arr.length(); i++)
+        {
+            JSONObject ele = arr.getJSONObject(i);
+            if(ele.has("Tags")){
+                JSONArray tags = ele.getJSONArray("Tags");
+                for (int j = 0; j< tags.length(); j++){
+                    JSONObject tag = tags.getJSONObject(j);
+                    String k = tag.getString("Value");
+                    if(resultTemp.containsKey(k)){
+                        resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
+                    }else{
+                        resultTemp.put(k,1);
+                    }
+                }
+
+            }
+            else{
+                continue;
+            }
+        }
+        Map<String,Integer> result = sortByValue(resultTemp);
+        Map<String, Integer> finalResult = new HashMap<String, Integer>();
+        int flag = 1;
+        for (Map.Entry<String, Integer> newEntry : result.entrySet()) {
+            //get first five
+            if (flag <= 5) {
+                finalResult.put(newEntry.getKey(), newEntry.getValue());
+                ++flag;
+            }
+        }
+        JSONObject jsonResult = new JSONObject(finalResult);
+        return jsonResult.toString();
     }
 
     public String findUsualPort(JSONObject ipPermission){
