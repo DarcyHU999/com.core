@@ -4,13 +4,26 @@ import { DownOutlined, ApiOutlined } from '@ant-design/icons';
 import { SearchOutlined,SecurityScanOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Input } from 'antd';
-import { Col, Row } from 'antd';
+import { Col, Row,Form } from 'antd';
 import axios from 'axios';
-import {  Dropdown, Menu, Modal, Space,Rate } from 'antd';
+import {  Dropdown, Menu, Modal, Space,Rate ,Checkbox} from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
 import {PageHeader} from 'antd';
 import background from "./backgroud.jpeg";
+
+
+const onFinish = (values) => {
+    console.log('Success:', values);
+};
+
+const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+};
+
+
+
+
 
 const SearchPage = () => {
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
@@ -99,21 +112,23 @@ const SearchPage = () => {
     return (
         <div style={{ height:"100vh",backgroundImage: `url(${background})` ,backgroundRepeat: 'no-repeat',
             backgroundSize:"100%,100%"}}>
-            <div style={{height:"200px",width:"100px"}}>
+            <div style={{height:"30vh",width:"500px"}}>
             </div>
             <div>
                 <Row>
                     <Col span={11}>
-                    </Col>
-                    <Col span={2}>
-                        <SecurityScanOutlined spin style={{fontSize:"60px"}}/>
-                        <div style={{height:"50px",width:"100px"}}>
-                        </div>
-                    </Col>
-                    <Col span={11}>
 
                     </Col>
+                    <Col span={3}>
+                        <SecurityScanOutlined spin style={{fontSize:"60px",color:"white"}}/>
+                        <b style={{fontSize:"60px",color:"white",fontStyle:"oblique"}}>CORE</b>
+                    </Col>
+                    <Col span={10}>
 
+                    </Col>
+                </Row>
+                <Row>
+                    <div style={{width:"100px",height:"30px"}}></div>
                 </Row>
                 <Row>
                     <Col span={8}>
@@ -130,7 +145,26 @@ const SearchPage = () => {
                         </Dropdown>
                     </Col>
                     <Col span={4}>
-                        <Input onChange={handleChange} style={{height:"5vh",fontSize:"1.5rem"}}/>
+                        <Form
+                            name="basic"
+                            initialValues={{ remember: true }}
+                            onFinish={onFinish}
+                            autoComplete="on"
+                        >
+                            <Form.Item
+                                // label="Username"
+                                name="username"
+                            >
+                                <Input onChange={handleChange} style={{height:"5vh",fontSize:"1.5rem"}}/>
+                            </Form.Item>
+                        </Form>
+
+
+
+
+
+
+
                     </Col>
                     <Col span={4}>
 
