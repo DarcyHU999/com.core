@@ -10,7 +10,7 @@ import {  Dropdown, Menu, Modal, Space,Rate } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
 import {PageHeader} from 'antd';
-
+import background from "./backgroud.jpg";
 
 const SearchPage = () => {
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
@@ -97,7 +97,8 @@ const SearchPage = () => {
     }
 
     return (
-        <div >
+        <div style={{ height:"100vh",backgroundImage: `url(${background})` ,backgroundRepeat: 'no-repeat',
+            backgroundSize:"100%,100%"}}>
             <div style={{height:"200px",width:"100px"}}>
             </div>
             <div>
