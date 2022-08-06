@@ -1,0 +1,43 @@
+{
+    "Table": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "client_id",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "customer",
+        "KeySchema": [
+            {
+                "AttributeName": "client_id",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "ACTIVE",
+        "CreationDateTime": "2022-07-31 17:09:19.131000+08:00",
+        "ProvisionedThroughput": {
+            "LastDecreaseDateTime": "2022-07-31 17:19:52.847000+08:00",
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        },
+        "TableSizeBytes": 100,
+        "ItemCount": 2,
+        "TableArn": "arn:aws:dynamodb:ap-southeast-2:963956405820:table/customer",
+        "TableId": "4a937e84-4415-4b44-aadc-bb06d86b0609"
+    },
+    "ResponseMetadata": {
+        "RequestId": "KCRLDGDDJ0GDQ100OA2ANFHP7BVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "server": "Server",
+            "date": "Sat, 06 Aug 2022 03:13:15 GMT",
+            "content-type": "application/x-amz-json-1.0",
+            "content-length": "524",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "KCRLDGDDJ0GDQ100OA2ANFHP7BVV4KQNSO5AEMVJF66Q9ASUAAJG",
+            "x-amz-crc32": "3914648328"
+        },
+        "RetryAttempts": 0
+    }
+}
