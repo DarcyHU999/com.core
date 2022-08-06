@@ -207,7 +207,7 @@ const SearchPage = () => {
                                 name="username"
                             >
 
-                                <Input onChange={handleChange} style={{height:"5vh",fontSize:"1.5rem"}}/>
+                                <Input onChange={handleChange} placeholder="Please input keyword" style={{height:"5vh",fontSize:"1.5rem"}}/>
                             </Form.Item>
                         </Form>
 
