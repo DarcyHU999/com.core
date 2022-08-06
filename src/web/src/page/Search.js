@@ -6,20 +6,13 @@ import { Button } from 'antd';
 import { Input } from 'antd';
 import { Col, Row,Form } from 'antd';
 import axios from 'axios';
-import {  Dropdown, Menu, Modal, Space,Rate ,Checkbox} from 'antd';
+import {  Dropdown, Menu, Modal, Space,Rate ,Steps} from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
 import {PageHeader} from 'antd';
 import background from "./backgroud.jpeg";
 
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
 
 
 
@@ -148,7 +141,7 @@ const SearchPage = () => {
                         <Form
                             name="basic"
                             initialValues={{ remember: true }}
-                            onFinish={onFinish}
+
                             autoComplete="on"
                         >
                             <Form.Item
@@ -208,7 +201,22 @@ const SearchPage = () => {
                         </Modal>
                     </Col>
                 </Row>
+                <Row>
+                    <Col span={8}>
+
+                    </Col>
+                    <Col span={8} >
+
+
+
+
+                    </Col>
+                    <Col span={8}>
+
+                    </Col>
+                </Row>
             </div>
+
         </div>
     );
 
