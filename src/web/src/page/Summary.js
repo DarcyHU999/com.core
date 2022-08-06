@@ -4,32 +4,33 @@ import * as echarts from 'echarts';
 import ReactEcharts from 'echarts-for-react';
 import { Col, Row } from 'antd';
 import {Button, Card,Tag,Popover } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { DownloadOutlined ,HighlightOutlined,BarChartOutlined   } from '@ant-design/icons';
 import iojson from 'iojson';
 import ReactJson from 'react-json-view';
 const content1 = (
     <div>
-        <p style={{fontSize:"1.2rem"}}>The frequency of searched keyword appearing in json file returned by choosed API.</p>
+
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> The frequency of searched keyword appearing in json file returned by choosed API.</p>
     </div>
 );
 const content2 = (
     <div>
-        <p style={{fontSize:"1.2rem"}}>The AWS product type.</p>
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> The AWS product type.</p>
     </div>
 );
 const content3 = (
     <div>
-        <p style={{fontSize:"1.2rem"}}>The AWS product service.</p>
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> The AWS product service.</p>
     </div>
 );
 const content4 = (
     <div>
-        <p style={{fontSize:"1.2rem"}}>The number of groups in json file containing the tag.</p>
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> The number of groups in json file containing the tag.</p>
     </div>
 );
 const content5 = (
     <div>
-        <p style={{fontSize:"1.2rem"}}>The number of groups in json file not containing the tag</p>
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> The number of groups in json file not containing the tag</p>
     </div>
 );
 
@@ -185,24 +186,24 @@ const Summary = props => {
                 <Col span={11}>
                     <Card style={{ width: "100%"}}>
                         <Popover content={content1}>
-                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>Keyword Frequency </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{freq}</b></b>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> Keyword Frequency </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{freq}</b></b>
                         </Popover>
                         <br/>
                         <Popover content={content2}>
-                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>Type </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{botoType}</b></b>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> Type </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{botoType}</b></b>
                         </Popover>
 
                         <br/>
                         <Popover content={content3}>
-                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>Service </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{service}</b></b>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> Service </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{service}</b></b>
                         </Popover>
                         <br/>
                         <Popover content={content4}>
-                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>the Number of Groups Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{tag}</b></b>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> the Number of Groups Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{tag}</b></b>
                         </Popover>
                         <br/>
                         <Popover content={content5}>
-                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}>the Number of Groups not Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{notTag}</b></b>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> the Number of Groups not Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{notTag}</b></b>
                         </Popover>
 
                         <br/>
