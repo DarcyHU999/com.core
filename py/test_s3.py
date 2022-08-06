@@ -27,4 +27,4 @@ with open("s3.json", "w+") as f:
     json.dump(result, f, indent=4, default=str)
 
 with open("s3_raw_data.json", "w+") as f:
-json.dump(raw_data, f, indent=4, default=str)
+    json.dump(raw_data, f, indent=4, default=str)

@@ -47,7 +47,6 @@ class connectDB:
         cursor.close()
         return result
 
-
     def delete_record(self, table_name: str, service: str):
         cursor = self.conn_obj.cursor()
         sql = f"delete from {table_name} where service = '{service}';"
@@ -62,7 +61,7 @@ class connectDB:
 if __name__ == '__main__':
     aws_access_key_id = 'AKIA6A4CHOY6AKLDJFIC'
     aws_secret_access_key = "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"
-    boto3_service = [("ec2", "vpc"), ("ec2", "security group"), ("ec2", "subnet"), ("ec2", "ec2"),
+    boto3_service = [("ec2", "vpc"), ("ec2", "security group"), ("ec2", "subnet"), ("ec2", "ec2"), ("s3", "s3"),
                      ("dynamodb", "dynamodb")]
     DB = connectDB()
     num = 1
