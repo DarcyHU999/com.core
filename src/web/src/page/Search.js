@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useState } from "react";
-import { DownOutlined, ApiOutlined } from '@ant-design/icons';
+import { DownOutlined, ApiOutlined, } from '@ant-design/icons';
 import { SearchOutlined,SecurityScanOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Input } from 'antd';
-import { Col, Row,Form } from 'antd';
+import { Col, Row,Form,Switch } from 'antd';
 import axios from 'axios';
-import {  Dropdown, Menu, Modal, Space,Rate ,Steps} from 'antd';
+import { Spin } from 'antd';
+import {  Dropdown, Menu, Modal, Space,Rate ,Steps,notification} from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
-import {PageHeader} from 'antd';
+
 import background from "./backgroud.jpeg";
 
 
@@ -19,13 +20,33 @@ import background from "./backgroud.jpeg";
 
 
 const SearchPage = () => {
+    const [loading, setLoading] = useState(false);
+
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
     const [value, setValue] = useState(0);
+
     const [value2, setValue2] = useState(0);
     const [value3, setValue3] = useState(0);
+    // const [visible, setVisible] = useState(false);
 
+    // const handleClose = () => {
+    //     setVisible(false);
+    // };
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    const openNotificationWithIcon = (type) => {
+        notification[type]({
+            message: 'Error',
+            description:
+                'Please select API.',
+        });
+    };
+    const openNotificationWithIcon2 = (type) => {
+        notification[type]({
+            message: 'Error',
+            description:
+                'Please input keyword.',
+        });
+    };
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -38,12 +59,16 @@ const SearchPage = () => {
         setIsModalVisible(false);
     };
     const [inputInform, setInput] = useState("")
-    const [API, setAPI] = useState("")
+    const [API, setAPI] = useState("-1")
 
     let navigate = useNavigate();
-
+    const toggle = (checked) => {
+        setLoading(checked);
+    };
     const handleMenuClick = (e) => {
+        console.log("++++",{API})
         setAPI(e.key)
+
 
     };
     const menu = (
@@ -86,26 +111,56 @@ const SearchPage = () => {
     }
     function submitInform(){
 
-        let key=inputInform.inputInform
-        let api=API
-        let url='http://localhost:8080/api/ApiInfo/'+api+'/'+key
-        axios.get(url)
-            .then(function (response) {
 
-                // setData(response.data.data)
 
-                navigate("/summary", { state: response.data.data })
 
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        if({inputInform}.inputInform=='' && {API}.API=='-1'){
+            openNotificationWithIcon2('error');
+            openNotificationWithIcon('error');
+        }else if({API}.API=='-1'){
+            openNotificationWithIcon('error');
+        }else if({inputInform}.inputInform==''){
+            openNotificationWithIcon2('error');
+
+        }
+        else{
+            toggle();
+
+
+
+
+            let key=inputInform.inputInform
+            let api=API
+            let url='http://localhost:8080/api/ApiInfo/'+api+'/'+key
+            axios.get(url)
+                .then(function (response) {
+
+
+                    // setData(response.data.data)
+
+                    navigate("/summary", { state: response.data.data })
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }
+
+
+
+
     }
 
     return (
         <div style={{ height:"100vh",backgroundImage: `url(${background})` ,backgroundRepeat: 'no-repeat',
             backgroundSize:"100%,100%"}}>
+
             <div style={{height:"30vh",width:"500px"}}>
+                {/*{visible ? (*/}
+                {/*    <Alert message="Alert Message Text" type="success" closable afterClose={handleClose} />*/}
+                {/*) : null}*/}
+                {/*<Switch checked={loading} onChange={toggle} />*/}
             </div>
             <div>
                 <Row>
@@ -114,7 +169,9 @@ const SearchPage = () => {
                     </Col>
                     <Col span={3}>
                         <SecurityScanOutlined spin style={{fontSize:"60px",color:"white"}}/>
-                        <b style={{fontSize:"60px",color:"white",fontStyle:"oblique"}}>CORE</b>
+
+                            <b style={{fontSize:"60px",color:"white",fontStyle:"oblique"}}>CORE</b>
+
                     </Col>
                     <Col span={10}>
 
@@ -124,8 +181,9 @@ const SearchPage = () => {
                     <div style={{width:"100px",height:"30px"}}></div>
                 </Row>
                 <Row>
-                    <Col span={8}>
-
+                    <Col span={7}></Col>
+                    <Col span={1}>
+                        <Spin spinning={loading} size="large"></Spin>
                     </Col>
                     <Col span={2}>
                         <Dropdown overlay={menu} >
@@ -148,6 +206,7 @@ const SearchPage = () => {
                                 // label="Username"
                                 name="username"
                             >
+
                                 <Input onChange={handleChange} style={{height:"5vh",fontSize:"1.5rem"}}/>
                             </Form.Item>
                         </Form>
@@ -168,6 +227,12 @@ const SearchPage = () => {
                         <Button type="primary" icon={<SearchOutlined />} onClick={submitInform} style={{height:"5vh",fontSize:"1.5rem"}}>
                             Search
                         </Button>
+                        <div>
+
+
+                        </div>
+
+
 
                         {/*</Link>*/}
                     </Col>
