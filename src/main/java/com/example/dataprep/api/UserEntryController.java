@@ -26,11 +26,11 @@ public class UserEntryController {
         this.userEntryService = userEntryService;
     }
 
-    @CrossOrigin( origins ="http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
-    public void insertEntryService( @Valid @NonNull @RequestBody Map<String, String> userEntry) throws IOException {
+    public void insertEntryService(@Valid @NonNull @RequestBody Map<String, String> userEntry) throws IOException {
         //userEntryService.insertUserEntry(apiURL,keyword);
-        JSONObject jsonFile = readAndAccess(userEntry.get("apiURL"),userEntry.get("keyword"));
+        JSONObject jsonFile = readAndAccess(userEntry.get("apiURL"), userEntry.get("keyword"));
         int l = 1;
     }
 
