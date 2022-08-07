@@ -54,7 +54,7 @@ class API:
                     tag_data = self.client.get_bucket_tagging(Bucket=f"{i['Name']}")
                     buckets.append(tag_data)
             self.raw_data = {"Buckets": buckets}
-            for bucket in self.raw_data:
+            for bucket in self.raw_data["Buckets"]:
                 tag_num = len(bucket['TagSet'])
                 if tag_num > 0:
                     self.contains_tag += 1
