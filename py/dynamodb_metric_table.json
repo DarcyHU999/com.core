@@ -1,0 +1,26 @@
+{
+    "Tags": [
+        {
+            "Key": "owner",
+            "Value": "comp9323"
+        },
+        {
+            "Key": "country",
+            "Value": "india"
+        }
+    ],
+    "ResponseMetadata": {
+        "RequestId": "7SSV5AC325CI1S9T6D080DT2SJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "server": "Server",
+            "date": "Sun, 07 Aug 2022 11:55:12 GMT",
+            "content-type": "application/x-amz-json-1.0",
+            "content-length": "79",
+            "connection": "keep-alive",
+            "x-amzn-requestid": "7SSV5AC325CI1S9T6D080DT2SJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+            "x-amz-crc32": "1038179005"
+        },
+        "RetryAttempts": 0
+    }
+}

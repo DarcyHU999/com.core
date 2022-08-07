@@ -30,15 +30,18 @@ class API:
             self.raw_data = self.client.describe_security_groups()
             self.type_id_name = "GroupId"
         elif self.service == 'dynamodb':
-            post_ = self.client.describe_table(TableName='posts')
-            customer_client = boto3.client(
+            post_ = self.client.list_tags_of_resource(ResourceArn='arn:aws:dynamodb:us-east-1:963956405820:table/posts')
+            ap_southeast_client = boto3.client(
                 self.type,
                 aws_access_key_id=self.id,
                 aws_secret_access_key=self.key,
                 region_name='ap-southeast-2'
             )
-            customer_ = customer_client.describe_table(TableName='customer')
-            self.raw_data = {'posts': post_, 'customer': customer_}
+            customer_ = ap_southeast_client.list_tags_of_resource(
+                ResourceArn='arn:aws:dynamodb:ap-southeast-2:963956405820:table/customer')
+            metric_table_ = ap_southeast_client.list_tags_of_resource(
+                ResourceArn='arn:aws:dynamodb:ap-southeast-2:963956405820:table/metric_table')
+            self.raw_data = {'posts': post_, 'customer': customer_, 'metric_table': metric_table_}
         elif self.service == 's3':
             self.raw_data = self.client.list_buckets()
         else:
@@ -49,8 +52,8 @@ class API:
         self.IpPermissions = defaultdict(list)
         self.CidrBlock = {}
         self.PrivateIpAddress = {}
-        if self.type != 'dynamodb':
-            self.preSummary()
+        self.preSummary()
+
 
     def preSummary(self):
         if self.type == 's3':
@@ -65,6 +68,13 @@ class API:
                 if tag_num > 0:
                     self.contains_tag += 1
                     self.num_of_tags_in_groups[self.num_of_groups] = tag_num
+                self.num_of_groups += 1
+        elif self.type == 'dynamodb':
+            for table in self.raw_data:
+                tag_num = len(self.raw_data[table]['Tags'])
+                if tag_num > 0:
+                    self.contains_tag += 1
+                    self.num_of_tags_in_groups[table] = tag_num
                 self.num_of_groups += 1
         else:
             key = list(self.raw_data.keys())[0]
@@ -115,12 +125,12 @@ class API:
 if __name__ == '__main__':
     aws_access_key_id = 'AKIA6A4CHOY6AKLDJFIC'
     aws_secret_access_key = "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"
-    boto3_type = 'ec2'
-    region_name = 'ap-southeast-2'  # ap-southeast-2 , us-east-1
-    api = API(aws_access_key_id, aws_secret_access_key, boto3_type, "vpc", region_name)
+    boto3_type = 'dynamodb'
+    region_name = 'us-east-1'  # ap-southeast-2 , us-east-1
+    api = API(aws_access_key_id, aws_secret_access_key, boto3_type, "dynamodb", region_name)
     # api.preSummary()
     # print(api.raw_data)
     x = json.dumps(api.raw_data, indent=1, default=str)
-    print(x)
+    print(api.num_of_tags_in_groups)
     # with open("dynamodb.json", "w+") as f:
     #     json.dump(api.raw_data, f, indent=4, default=str)
