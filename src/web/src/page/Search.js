@@ -9,14 +9,18 @@ import axios from 'axios';
 import {  Dropdown, Menu, Modal, Space,Rate } from 'antd';
 
 import { useNavigate, Link,createSearchParams} from "react-router-dom";
+import { func } from 'prop-types';
 
 
 
 const SearchPage = () => {
     const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
-    const [value, setValue] = useState(0);
-    const [value2, setValue2] = useState(0);
-    const [value3, setValue3] = useState(0);
+    const [value, setValue] = useState(3);
+    const [value2, setValue2] = useState(3);
+    const [value3, setValue3] = useState(3);
+    const [value4, setValue4] = useState(3);
+    const [value5, setValue5] = useState(3);
+    const [value6, setValue6] = useState(3);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,7 +30,22 @@ const SearchPage = () => {
 
     const handleOk = () => {
         setIsModalVisible(false);
+        const params = {
+            '1': value+'',
+            '2': value2+'',
+            '3': value3+'',
+            '4': value4+'',
+            '5': value5+'',
+            '6': value6+''
+        }
+        console.log(params);
+        submit_mark(params)
     };
+
+    const submit_mark = (params) => {
+        axios.put('http://localhost:8080/api/ApiInfo/scoring', {
+            ...params
+     })}
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -95,6 +114,30 @@ const SearchPage = () => {
                 console.log(error);
             });
     }
+    
+    function markclick1(data){
+        console.log (data)
+        setValue(data)
+    }
+    function markclick2(data){
+        
+        setValue2(data)
+    }
+
+    function markclick3(data){
+        setValue3(data)
+    }
+
+    function markclick4(data){
+        setValue4(data)
+    }
+
+    function markclick5(data){
+        setValue5(data)
+    }
+    function markclick6(data){
+        setValue6(data)
+    }
 
     return (
         <div >
@@ -137,24 +180,45 @@ const SearchPage = () => {
                         </Button>
                         <Modal title="Mark items" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                             <div>
-                                <b>Security Group </b>
+                                <b>Vpcs </b>
                                 <span>
-                                    <Rate tooltips={desc} onChange={setValue} value={value} />
+                                    <Rate tooltips={desc} onChange={markclick1} value={value} />
                                     {value ? <span className="ant-rate-text">{desc[value - 1]}</span> : ''}
                                 </span>
                             </div>
                             <div>
-                                <b>item22222222 </b>
+                                <b>SecurityGroups </b>
                                 <span>
-                                    <Rate tooltips={desc} onChange={setValue2} value={value2} />
+                                    <Rate tooltips={desc} onChange={markclick2} value={value2}  />
                                     {value2 ? <span className="ant-rate-text">{desc[value2 - 1]}</span> : ''}
                                 </span>
                             </div>
                             <div>
-                                <b>item22222222 </b>
+                                <b>Subnets </b>
                                 <span>
-                                    <Rate tooltips={desc} onChange={setValue3} value={value3} />
+                                    <Rate tooltips={desc} onChange={markclick3} value={value3} />
                                     {value3 ? <span className="ant-rate-text">{desc[value3 - 1]}</span> : ''}
+                                </span>
+                            </div>
+                            <div>
+                                <b> Reservations</b>
+                                <span>
+                                    <Rate tooltips={desc} onChange={markclick4} value={value4} />
+                                    {value4 ? <span className="ant-rate-text">{desc[value4 - 1]}</span> : ''}
+                                </span>
+                            </div>
+                            <div>
+                                <b>Buckets </b>
+                                <span>
+                                    <Rate tooltips={desc} onChange={markclick5} value={value5} />
+                                    {value5 ? <span className="ant-rate-text">{desc[value5 - 1]}</span> : ''}
+                                </span>
+                            </div>
+                            <div>
+                                <b>Posts </b>
+                                <span>
+                                    <Rate tooltips={desc} onChange={markclick6} value={value6} />
+                                    {value6 ? <span className="ant-rate-text">{desc[value6 - 1]}</span> : ''}
                                 </span>
                             </div>
                         </Modal>
