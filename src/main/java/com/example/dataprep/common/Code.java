@@ -1,7 +1,11 @@
 package com.example.dataprep.common;
 
+/**
+ * Used for interface status code return, convenient front-end debugging.
+ * @author Yanjun
+ * @date 2022/8/6 21:31
+*/
 public class Code {
-//    增删改查状态码
     public static final Integer SAVE_OK = 932311;
     public static final Integer DELETE_OK = 932321;
     public static final Integer UPDATE_OK = 932331;

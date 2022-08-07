@@ -1,5 +1,10 @@
 package com.example.dataprep.common;
 
+/**
+ * Used to format the return front-end request and unify the format of the back-end interface.
+ * @author Yanjun
+ * @date 2022/8/6 21:30
+ */
 public class Result {
     private Integer code;
     private Object data;

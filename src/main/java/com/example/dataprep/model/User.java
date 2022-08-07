@@ -5,12 +5,15 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     @NotBlank
+    // user id
     private Integer id;
     @NotBlank
+    // username
     private String username;
     @NotBlank
+    // password
     private String password;
-
+    // User rating of the API
     private Integer grade;
 
     public User() {
