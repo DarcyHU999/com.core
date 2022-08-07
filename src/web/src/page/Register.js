@@ -87,16 +87,28 @@ const Register = props => {
     return (
         <div className = 'box1'>
             <Row>
-                <div style={{height:"40vh",width:"40vh"}}></div>
+                <div style={{height:"30vh",width:"40vh"}}></div>
             </Row>
             <Row>
                 <Col span={10}>
 
                 </Col>
                 <Col span={4}>
-                    <SecurityScanOutlined spin style={{fontSize:"60px",color:"white"}}/>
+                    <Row>
+                        <Col span={4}>
 
-                    <b style={{fontSize:"60px",color:"white",fontStyle:"oblique"}}>CORE</b>
+                        </Col>
+                        <Col span={16}>
+
+                            <SecurityScanOutlined spin style={{fontSize:"60px",color:"white"}}/>
+
+                            <b style={{fontSize:"60px",color:"white",fontStyle:"oblique"}}>CORE</b>
+                        </Col>
+                        <Col span={4}>
+
+                        </Col>
+                    </Row>
+
                 </Col>
                 <Col span={10}>
 
@@ -135,6 +147,7 @@ const Register = props => {
                                 onChange={getinput}
                                 placeholder="Username"
                                 allowClear={true}
+                                style={{height:"5vh",fontSize:"1.5rem"}}
                             />
                         </Form.Item>
                         <Form.Item
@@ -153,6 +166,7 @@ const Register = props => {
                                 onChange={getinput}
                                 placeholder="Password"
                                 allowClear={true}
+                                style={{height:"5vh",fontSize:"1.5rem"}}
 
                             />
                         </Form.Item>
@@ -167,14 +181,22 @@ const Register = props => {
                             <Col span={8}>
 
                             </Col>
-                            <Col span={8}>
+                            <Col span={10}>
                                 <Form.Item>
                                     <Button type="primary" htmlType="submit" className="register-form-button">
                                         Register
                                     </Button>
                                 </Form.Item>
+                                <Row>
+                                    <Col span={2}></Col>
+                                    <Col span={22}>
+                                        <span style={{color:"White",fontSize:"0.8rem"}}>Or</span>
+                                        <a style={{fontSize:"1rem"}} href="javascript:history.back()"> Login</a>
+                                    </Col>
+
+                                </Row>
                             </Col>
-                            <Col span={8}>
+                            <Col span={6}>
 
                             </Col>
                         </Row>

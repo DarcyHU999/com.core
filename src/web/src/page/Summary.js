@@ -112,7 +112,7 @@ const Summary = props => {
     const getOption2 = () =>{
         let option2 = {
             title: {
-                text: 'Top 5 tag key frequency',
+                text: 'Top tag key frequency',
                 subtext: '',
                 left: 'center',
 
@@ -141,7 +141,7 @@ const Summary = props => {
     const getOption3 = () =>{
         let option3 = {
             title: {
-                text: 'Top 5 tag value frequency',
+                text: 'Top tag value frequency',
                 subtext: '',
                 left: 'center',
 
@@ -178,7 +178,7 @@ const Summary = props => {
                 </Col>
                 <Col span={4}>
                     <Button  type="primary" style={{marginTop:"20px"}} icon={<DownloadOutlined />} size='large' onClick = {outJson}>
-                        Download
+                        Download Raw Data
                     </Button>
                 </Col>
             </Row>

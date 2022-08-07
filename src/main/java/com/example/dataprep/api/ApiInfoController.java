@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.StringReader;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/ApiInfo")
@@ -23,11 +25,11 @@ public class ApiInfoController {
 
     @CrossOrigin( origins ="http://localhost:3000")
     @RequestMapping(path = "/{ids}/{keyWord}", method = RequestMethod.GET)
-    public Result getById(@PathVariable String ids, @PathVariable String keyWord){
+    public Result getById(@PathVariable String ids, @PathVariable String keyWord){ //By responding Get method to return API information front-end needed
         List<String> info = new ArrayList<>();
         String[] arrOfIds = ids.split(",");
         for(String id:arrOfIds) {
-            info.add(dealWithApi(Integer.parseInt(id), keyWord));
+            info.add(dealWithApi(Integer.parseInt(id), keyWord));//Method to build json file front-end needed
         }
         String infoStr = info.toString();
         Integer code = info != null ? Code.GET_OK : Code.GET_ERR;
@@ -35,7 +37,7 @@ public class ApiInfoController {
         return new Result(code, infoStr, msg);
     }
 
-    public String dealWithApi(Integer id,String keyWord){
+    public String dealWithApi(Integer id,String keyWord){ //Get apiInfo instance by id
         ApiInfo apiInfo = apiInfoService.getById(id);
         JSONObject ipPermissions = new JSONObject();
         JSONObject numOfTagsInGroup = new JSONObject();
@@ -60,9 +62,10 @@ public class ApiInfoController {
 
         String usualPort=findUsualPort(ipPermissions);
         String groupCase=findGroupCase(rawData);
-        String keyFreq=findKeyFreq(rawData,keyWord);
-        String tagKeys=findTagKeys(rawData);
-        String tagVals=findTagVals(rawData);
+        String keyFreq=findKeyFreq(rawData,keyWord);// get key words frequency
+        String tagKeys=findTagKeys(rawData);// get keys in tags and its corresponding times
+        String tagVals=findTagVals(rawData);// get value in tags and its corresponding times
+        // build json format String which send back to front-end
         String infoStr = "{" +
                 "\"botoType\":" + "\"" + apiInfo.getType() + "\""  + "," +
                 "\"service\":" + "\"" + apiInfo.getService() + "\"" + "," +
@@ -95,12 +98,17 @@ public class ApiInfoController {
         }
         Set<String> keySet=rawData.keySet();
         for(String str : keySet){
-            JSONArray arr = rawData.getJSONArray(str);
-            if(!arr.isEmpty()){
-                return arr.get(0).toString();
-            }else{
-                return null;
+            try {
+                JSONArray arr = rawData.getJSONArray(str);
+                if (!arr.isEmpty()) {
+                    return arr.get(0).toString();
+                } else {
+                    return null;
+                }
+            }catch (Exception e){
+                return rawData.get(str).toString();
             }
+
         }
         return null;
     }
@@ -135,25 +143,22 @@ public class ApiInfoController {
         }else{
             return null;
         }
-        JSONArray arr = rawData.getJSONArray(key.toString());
-        for(int i = 0; i < arr.length(); i++)
-        {
-            JSONObject ele = arr.getJSONObject(i);
-            if(ele.has("Tags")){
-                JSONArray tags = ele.getJSONArray("Tags");
-                for (int j = 0; j< tags.length(); j++){
-                    JSONObject tag = tags.getJSONObject(j);
-                    String k = tag.getString("Key");
-                    if(resultTemp.containsKey(k)){
-                        resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
-                    }else{
-                        resultTemp.put(k,1);
-                    }
+        String p = new String("(\"Tags\"|\"TagSet\"):\\[[^\\[\\]]+\\]");
+        String str =rawData.toString();
+        Pattern pattern = Pattern.compile(p);
+        Matcher matcher = pattern.matcher(str);
+        while (matcher.find()) {
+            String st= matcher.group(0);
+            JSONObject tags = new JSONObject("{"+st+"}");
+            JSONArray arr = tags.getJSONArray("Tags");
+            for(int i = 0; i<tags.length();i++){
+                JSONObject tag = arr.getJSONObject(i);
+                String k = tag.getString("Key");
+                if(resultTemp.containsKey(k)){
+                    resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
+                }else{
+                    resultTemp.put(k,1);
                 }
-
-            }
-            else{
-                continue;
             }
         }
         Map<String,Integer> result = sortByValue(resultTemp);
@@ -182,25 +187,22 @@ public class ApiInfoController {
         }else{
             return null;
         }
-        JSONArray arr = rawData.getJSONArray(key.toString());
-        for(int i = 0; i < arr.length(); i++)
-        {
-            JSONObject ele = arr.getJSONObject(i);
-            if(ele.has("Tags")){
-                JSONArray tags = ele.getJSONArray("Tags");
-                for (int j = 0; j< tags.length(); j++){
-                    JSONObject tag = tags.getJSONObject(j);
-                    String k = tag.getString("Value");
-                    if(resultTemp.containsKey(k)){
-                        resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
-                    }else{
-                        resultTemp.put(k,1);
-                    }
+        String p = new String("(\"Tags\"|\"TagSet\"):\\[[^\\[\\]]+\\]");
+        String str =rawData.toString();
+        Pattern pattern = Pattern.compile(p);
+        Matcher matcher = pattern.matcher(str);
+        while (matcher.find()) {
+            String st= matcher.group(0);
+            JSONObject tags = new JSONObject("{"+st+"}");
+            JSONArray arr = tags.getJSONArray("Tags");
+            for(int i = 0; i<tags.length();i++){
+                JSONObject tag = arr.getJSONObject(i);
+                String k = tag.getString("Value");
+                if(resultTemp.containsKey(k)){
+                    resultTemp.compute(k,(KEY,VAL)-> VAL + 1);
+                }else{
+                    resultTemp.put(k,1);
                 }
-
-            }
-            else{
-                continue;
             }
         }
         Map<String,Integer> result = sortByValue(resultTemp);
