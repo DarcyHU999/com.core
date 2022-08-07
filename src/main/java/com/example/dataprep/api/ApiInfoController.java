@@ -6,13 +6,11 @@ import com.example.dataprep.model.ApiInfo;
 import com.example.dataprep.model.User;
 import com.example.dataprep.service.ApiInfoService;
 import com.example.dataprep.service.UserService;
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.StringReader;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +21,14 @@ public class ApiInfoController {
     @Autowired
     private ApiInfoService apiInfoService;
 
+    /**
+     *
+     * @param ids
+     * @param keyWord
+     * @return com.example.dataprep.common.Result
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:53
+    */
     @CrossOrigin( origins ="http://localhost:3000")
     @RequestMapping(path = "/{ids}/{keyWord}", method = RequestMethod.GET)
     public Result getById(@PathVariable String ids, @PathVariable String keyWord){ //By responding Get method to return API information front-end needed
@@ -37,6 +43,14 @@ public class ApiInfoController {
         return new Result(code, infoStr, msg);
     }
 
+    /**
+     *
+     * @param id
+     * @param keyWord
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:53
+    */
     public String dealWithApi(Integer id,String keyWord){ //Get apiInfo instance by id
         ApiInfo apiInfo = apiInfoService.getById(id);
         JSONObject ipPermissions = new JSONObject();
@@ -82,6 +96,14 @@ public class ApiInfoController {
         return infoStr;
     }
 
+    /**
+     *
+     * @param rawData
+	 * @param keyWord
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:53
+    */
     public String findKeyFreq(JSONObject rawData,String keyWord){
         String s = rawData.toString();
         int count = 0;
@@ -91,7 +113,13 @@ public class ApiInfoController {
         return Integer.toString(count);
     }
 
-
+    /**
+     *
+     * @param rawData
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:54
+    */
     public String findGroupCase(JSONObject rawData){
         if(rawData.isEmpty()){
             return null;
@@ -113,7 +141,14 @@ public class ApiInfoController {
         return null;
     }
 
-    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
+    /**
+     *
+     * @param hm
+     * @return java.util.HashMap<java.lang.String,java.lang.Integer>
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:54
+    */
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) //sort hashMap by value
     {
         List<Map.Entry<String, Integer> > list =
                 new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
@@ -131,7 +166,14 @@ public class ApiInfoController {
         return temp;
     }
 
-    public String findTagKeys(JSONObject rawData){
+    /**
+     *
+     * @param rawData
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:54
+    */
+    public String findTagKeys(JSONObject rawData){ //find "keys" in "tags" in jsonObject
         if(rawData.isEmpty()){
             return null;
         }
@@ -175,7 +217,14 @@ public class ApiInfoController {
         return jsonResult.toString();
     }
 
-    public String findTagVals(JSONObject rawData){
+    /**
+     *
+     * @param rawData
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:54
+    */
+    public String findTagVals(JSONObject rawData){ //find "Value" in "Tags" in jsonObject
         if(rawData.isEmpty()){
             return null;
         }
@@ -219,7 +268,14 @@ public class ApiInfoController {
         return jsonResult.toString();
     }
 
-    public String findUsualPort(JSONObject ipPermission){
+    /**
+     *
+     * @param ipPermission
+     * @return java.lang.String
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:54
+    */
+    public String findUsualPort(JSONObject ipPermission){ // find most usual port
         Set<String> keySet=ipPermission.keySet();
         Map<String,Integer> hashMap = new HashMap<String,Integer>();
         for(String str: keySet){
@@ -246,7 +302,14 @@ public class ApiInfoController {
     @Autowired
     UserService userService;
 
-    public Integer gradedNumber() {
+    /**
+     *
+     * @param
+     * @return java.lang.Integer
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:55
+    */
+    public Integer gradedNumber() { // find number of grades
         Integer userNumber = 0;
         List<User> userList = userService.getAll();
         for (User user : userList) {
@@ -257,9 +320,16 @@ public class ApiInfoController {
         return userNumber;
     }
 
+    /**
+     *
+     * @param jsonString
+     * @return com.example.dataprep.common.Result
+     * @author Qingyuan Hu
+     * @date 2022/8/7 10:55
+    */
     @CrossOrigin( origins ="http://localhost:3000")
     @RequestMapping(path = "/scoring", method = RequestMethod.PUT)
-    public Result update(@RequestBody String jsonString){
+    public Result update(@RequestBody String jsonString){ //get score from front-end and update database
         JSONObject jsonObject = new JSONObject(jsonString);
         Integer gradedNumber = gradedNumber() + 1;
         Integer numOfApis = apiInfoService.getApiNum();
