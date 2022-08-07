@@ -29,8 +29,8 @@ class connectDB:
         IpPermissions = json.dumps(api.IpPermissions, default=str)
         CidrBlock = json.dumps(api.CidrBlock, default=str)
         PrivateIpAddress = json.dumps(api.PrivateIpAddress, default=str)
-        if self.check_exist(table_name, service):
-            self.delete_record(table_name, service)
+        if self.check_exist(table_name, db_id):
+            self.delete_record(table_name, db_id)
         sample = [db_id, boto3_type, service, region_name, raw_data, num_of_groups, contains_tag, num_of_tags_in_groups,
                   IpPermissions, CidrBlock, PrivateIpAddress]
         sql = f"insert into {table_name} (id,type,service,region,rawData,numOfGroups,numOfTags," \
@@ -39,17 +39,17 @@ class connectDB:
         self.conn_obj.commit()
         cursor.close()
 
-    def check_exist(self, table_name: str, service: str):
+    def check_exist(self, table_name: str, db_id: int):
         cursor = self.conn_obj.cursor()
-        sql = f"select * from {table_name} where service = '{service}';"
+        sql = f"select * from {table_name} where id = '{db_id}';"
         cursor.execute(sql)
         result = cursor.fetchall()
         cursor.close()
         return result
 
-    def delete_record(self, table_name: str, service: str):
+    def delete_record(self, table_name: str, db_id: int):
         cursor = self.conn_obj.cursor()
-        sql = f"delete from {table_name} where service = '{service}';"
+        sql = f"delete from {table_name} where id = '{db_id}';"
         cursor.execute(sql)
         self.conn_obj.commit()
         cursor.close()
