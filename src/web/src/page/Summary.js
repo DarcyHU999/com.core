@@ -34,6 +34,12 @@ const content5 = (
     </div>
 );
 
+const content6 = (
+    <div>
+        <p style={{fontSize:"1.2rem"}}><HighlightOutlined/> All users' ratings for this api</p>
+    </div>
+);
+
 const Summary = props => {
     let data=useLocation().state
     data=JSON.parse(data)
@@ -47,6 +53,7 @@ const Summary = props => {
     var groupCase=data["groupCase"]
     var tagKeys=data["tagKeys"]
     var tagValue=data["tagVals"]
+    var score=Math.round(data["score"])
 
     var listKey=[]
     var keyFreq=[]
@@ -185,6 +192,10 @@ const Summary = props => {
             <Row>
                 <Col span={11}>
                     <Card style={{ width: "100%"}}>
+                        <Popover content={content6}>
+                            <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> Api score </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{score}</b></b>
+                        </Popover>
+                        <br/>
                         <Popover content={content1}>
                             <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> Keyword Frequency </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{freq}</b></b>
                         </Popover>
@@ -205,7 +216,6 @@ const Summary = props => {
                         <Popover content={content5}>
                             <Tag color="green" style={{fontSize:"2rem",fontWeight:"700",height:"30px",textAlign:"center"}}><BarChartOutlined /> the Number of Groups not Included tag </Tag><b style={{fontSize:"2rem",fontWeight:"700",color:"gray"}}> <b style={{fontSize:"2rem",fontWeight:"900",color:"black"}}>{notTag}</b></b>
                         </Popover>
-
                         <br/>
                     </Card>
 
