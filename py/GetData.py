@@ -31,7 +31,13 @@ class API:
             self.type_id_name = "GroupId"
         elif self.service == 'dynamodb':
             post_ = self.client.describe_table(TableName='posts')
-            customer_ = self.client.describe_table(TableName='customer')
+            customer_client = boto3.client(
+                self.type,
+                aws_access_key_id=self.id,
+                aws_secret_access_key=self.key,
+                region_name='ap-southeast-2'
+            )
+            customer_ = customer_client.describe_table(TableName='customer')
             self.raw_data = {'posts': post_, 'customer': customer_}
         elif self.service == 's3':
             self.raw_data = self.client.list_buckets()
