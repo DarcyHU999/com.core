@@ -192,8 +192,13 @@ public class ApiInfoController {
         while (matcher.find()) {
             String st= matcher.group(0);
             JSONObject tags = new JSONObject("{"+st+"}");
-            JSONArray arr = tags.getJSONArray("Tags");
-            for(int i = 0; i<tags.length();i++){
+            JSONArray arr = new JSONArray();
+            if(tags.has("Tags")){
+                arr = tags.getJSONArray("Tags");
+            }else{
+                arr = tags.getJSONArray("TagSet");
+            }
+            for(int i = 0; i<arr.length();i++){
                 JSONObject tag = arr.getJSONObject(i);
                 String k = tag.getString("Key");
                 if(resultTemp.containsKey(k)){
@@ -243,8 +248,13 @@ public class ApiInfoController {
         while (matcher.find()) {
             String st= matcher.group(0);
             JSONObject tags = new JSONObject("{"+st+"}");
-            JSONArray arr = tags.getJSONArray("Tags");
-            for(int i = 0; i<tags.length();i++){
+            JSONArray arr = new JSONArray();
+            if(tags.has("Tags")){
+                arr = tags.getJSONArray("Tags");
+            }else{
+                arr = tags.getJSONArray("TagSet");
+            }
+            for(int i = 0; i<arr.length();i++){
                 JSONObject tag = arr.getJSONObject(i);
                 String k = tag.getString("Value");
                 if(resultTemp.containsKey(k)){

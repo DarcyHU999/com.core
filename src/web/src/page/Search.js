@@ -96,8 +96,13 @@ const SearchPage = () => {
                     icon: <ApiOutlined />,
                 },
                 {
-                    label: 'Table',
+                    label: 'Buckets',
                     key: '5',
+                    icon: <ApiOutlined />,
+                },
+                {
+                    label: 'Posts',
+                    key: '6',
                     icon: <ApiOutlined />,
                 },
             ]}
