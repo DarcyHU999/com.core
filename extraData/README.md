@@ -2,8 +2,10 @@
 
 │  run.sh
 	- Script for extracting data
+
 │  ConnectMySQL.py 
 	- insert data to database
+	
 │  GetData.py 
 	- obtain data and pre-summary
 
